@@ -1,0 +1,4 @@
+spec_version: "0.1.0"
+name: appointment-prep-assistant
+version: "1.0.0"
+description: Organizes user-provided appointment details into a non-clinical preparation checklist for human review.
