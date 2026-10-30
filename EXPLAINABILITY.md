@@ -11,3 +11,9 @@ The input is a local JSON record entered by the user. The agent does not retriev
 ## Limits and known constraints
 
 The principal limitation is that the checklist cannot determine whether information is medically correct or whether care is urgent. It provides organizational support only and must not be used for diagnosis, triage, medication changes, or treatment decisions.
+
+## Implementation in This Repository
+
+`app.py` reads the local appointment record, applies deterministic completeness checks, and produces the preparation checklist. `sample_data.json` supplies a reproducible example, and `test_app.py` exercises the implemented parsing and recommendation behavior.
+
+There is no EHR integration, clinical model, or action endpoint in the code. The returned checklist is transparent because each item follows directly from a missing or supplied field and remains subject to patient and clinician review.
