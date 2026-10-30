@@ -14,6 +14,14 @@ The principal limitation is that the checklist cannot determine whether informat
 
 ## Implementation in This Repository
 
-`app.py` reads the local appointment record, applies deterministic completeness checks, and produces the preparation checklist. `sample_data.json` supplies a reproducible example, and `test_app.py` exercises the implemented parsing and recommendation behavior.
+The executable implementation is in `app.py`. Its `prepare(data)` function iterates over the seven declared `CHECKS` fields, treats a supplied value as ready (including an explicitly empty allergy list), and returns each field's `ready` or `missing` status, action, and reason together with `ready_count`, `appointment_type`, and the non-clinical disclaimer.
 
-There is no EHR integration, clinical model, or action endpoint in the code. The returned checklist is transparent because each item follows directly from a missing or supplied field and remains subject to patient and clinician review.
+The same file provides a command-line entry point that reads `sample_data.json` or a user-selected JSON file and prints the exact structured result. `test_app.py` checks missing-field behavior and the explicit empty-allergy case. The implementation is deterministic, has no EHR integration, clinical model, or action endpoint, and leaves every checklist item subject to patient and clinician review.
+
+## Outputs and supporting evidence
+
+The output contains the appointment type, number of ready items, and a checklist whose `reason` states whether each required field was provided. That direct mapping from input field to status is the supporting evidence for every action shown.
+
+## Uncertainty and human review
+
+The worker cannot verify that supplied information is current, complete, or medically correct. The user and clinician must review the checklist, and urgent or clinical questions must follow appropriate professional or emergency channels.
